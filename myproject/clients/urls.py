@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .apps import ClientsConfig
-from .models import Client
+
 from .views import (
     ClientCreateView,
     ClientListView,
@@ -9,14 +9,14 @@ from .views import (
     ClientUpdateView,
     ClientDeleteView,
     base,
-    main,
+    home,
 )
 
 
 app_name = ClientsConfig.name
 urlpatterns = [
-    # path('', base, name='base'),
-    path("", main, name="main"),
+    path("", base, name='base'),
+    path("", home, name="home"),
     path("clients/", ClientListView.as_view(), name="list_client"),
     path("create/", ClientCreateView.as_view(), name="create_client"),
     path("view/<int:pk>/", ClientDetailView.as_view(), name="view_client"),

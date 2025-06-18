@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детали рассылки</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Детали рассылки</h1>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Информация о рассылке</h5>
+                <p><strong>Первая рассылка:</strong> {{ mailing.first_mailing }}</p>
+                <p><strong>Время следующей рассылки:</strong> {{ mailing.next_mailing }}</p>
+                <p><strong>Периодичность:</strong>
+                {% if mailing.frequency == 'DY' %}
+                Раз в день
+                {% endif %}
+                    {% if mailing.frequency == 'WE' %}
+                    Раз в неделю
+                    {% endif %}
+                        {% if mailing.frequency == 'MN' %}
+                        Раз в месяц
+                        {% endif %}
+                         </p>
+
+                <p><strong>Статус:</strong>
+                 {% if mailing.status == 'CR' %}
+                    Создана
+                    {% endif %}
+                {% if mailing.status == 'RN' %}
+                    Запущена
+                    {% endif %}
+                {% if mailing.status == 'FS' %}
+                    Завершена
+                    {% endif %}
+                </p>
+
+                <h5 class="mt-4">Клиенты:</h5>
+                <ul>
+                    {% for client in mailing.clients.all %}
+                        <li>{{ client.get_fullname }}</li>
+                    {% empty %}
+                        <li>Нет клиентов</li>
+                    {% endfor %}
+                </ul>
+
+                <h5 class="mt-4">Письмо:</h5>
+                <p><strong>Тема:</strong> {{ mailing.message.topic }}</p>
+                <p><strong>Содержимое:</strong>
+ {{ mailing.message.content|linebreaks }}</p>
+
+
+               <li class="list-group-item">
+    <strong>Попытки рассылки:</strong>
+                    <p>Отправленных сообщений: {{ sent_messages_count }}</p>
+                    <p>Успешных попыток: {{ success_count }}</p>
+                    <p>Неуспешных попыток: {{ failure_count }}</p>
+
+    <ul>
+        {% for attempt in mailing.mailingtrying_set.all %}
+            <li>{{ attempt.last_mailing }} - {{ attempt.get_status_trying_display }} - {{ attempt.server_response }}</li>
+        {% empty %}
+            <li>Нет попыток рассылки.</li>
+        {% endfor %}
+    </ul>
+</li>
+
+                <div class="mt-4">
+                    <a href="{% url 'mailing:update_mailing' object.pk %}" class="btn btn-primary">Редактировать</a>
+                    <a href="{% url 'mailing:list_mailing' %}" class="btn btn-secondary">Назад к списку</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

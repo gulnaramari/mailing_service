@@ -37,7 +37,7 @@ def base(request):
     )
 
 
-def main(request):
+def home(request):
     unique = Client.objects.values("email").distinct().count()
     mailings = Mailing.objects.count()
     active_mailings = Mailing.objects.filter(status="RN").count()

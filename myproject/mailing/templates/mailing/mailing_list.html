@@ -1,0 +1,72 @@
+{% extends 'clients/base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <div class="container">
+        <h2 class="my-4">Рассылки</h2>
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="d-grid gap-2 d-md-block">
+                    <a class="btn btn-outline-primary" href="{% url 'mailing:create_mailing_options' %}">
+                        Создать рассылку
+                    </a>
+                    <a class="btn btn-outline-secondary" href="{% url 'mailing:list_mailing_trying' %}">
+                        Попытки рассылок
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for mailing in object_list %}
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-light">
+                        <h5 class="card-title mb-0">
+                            Рассылка #{{ mailing.id }}
+                            <span class="badge bg-{% if mailing.status == 'CR' %}info{% elif mailing.status == 'RN' %}warning{% else %}success{% endif %}">
+                                {{ mailing.get_status_display }}
+                            </span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <strong>Тема:</strong> {{ mailing.message.topic }}<br>
+                            <strong>Когда:</strong> {{ mailing.next_mailing|date:"d.m.Y H:i" }}<br>
+                            <strong>Периодичность:</strong> {{ mailing.get_frequency_display }}
+                        </p>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <div class="btn-group" role="group">
+                            <a href="{% url 'mailing:view_mailing' mailing.pk %}"
+                               class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-eye"></i> Просмотр
+                            </a>
+                            <a href="{% url 'mailing:update_mailing' mailing.pk %}"
+                               class="btn btn-sm btn-outline-secondary">
+                                <i class="bi bi-pencil"></i> Редактировать
+                            </a>
+                            <a href="{% url 'mailing:delete_mailing' mailing.pk %}"
+                               class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i> Удалить
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">
+                    Нет активных рассылок. <a href="{% url 'mailing:create_mailing_options' %}">Создать новую?</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% else %}
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+        <p>Пожалуйста войдите в систему</p>
+    </div>
+{% endif %}
+{% endblock %}

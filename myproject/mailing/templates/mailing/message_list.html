@@ -1,0 +1,34 @@
+{% extends 'clients/base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="col-12 mb-5">
+    <a class="btn btn-outline-primary" href="{% url 'mailing:create_message' %}">Написать письмо</a>
+</div>
+<div class="col-md-4">
+    {% for message in object_list %}
+    <div class="card mb-4 box-shadow">
+        <div class="card-body">
+            <p class="card-text">
+                {{ message.topic }}
+            </p>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <a href="{% url 'mailing:view_message' message.pk %}"
+                       class="btn btn-sm btn-outline-secondary">Просмотр</a>
+                    <a href="{% url 'mailing:update_message' message.pk %}" type="button"
+                       class="btn btn-sm btn-outline-secondary">Редактировать</a>
+                    <a href="{% url 'mailing:delete_message' message.pk %}" type="button"
+                       class="btn btn-sm btn-outline-danger">Удалить</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+        <p>Пожалуйста войдите в систему</p>
+    </div>
+{% endif %}
+{% endblock %}

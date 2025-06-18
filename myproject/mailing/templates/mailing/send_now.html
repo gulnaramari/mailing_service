@@ -1,0 +1,22 @@
+<h1>Отправить рассылку сейчас</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+
+    {% for field in form %}
+        {% if field.name not in "first_mailing next_mailing periodicity" %}
+            <p>
+                {{ field.label_tag }}<br>
+                {{ field }}
+                {% if field.errors %}
+                    <div class="error">{{ field.errors }}</div>
+                {% endif %}
+            </p>
+        {% endif %}
+    {% endfor %}
+
+    <button type="submit" name="action" value="send_now">
+        Отправить сейчас
+    </button>
+</form>

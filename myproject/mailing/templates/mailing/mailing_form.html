@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if object %}Редактировать рассылку{% else %}Создать рассылку{% endif %}</title>
+</head>
+<body>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" name= "action" value ="send_now" >
+    Отправить сейчас
+    </button>
+        <button type="submit"  class="btn btn-success" name="action" value="create_mailing">
+        Создать рассылку
+        </button>
+    </form>
+</body>
+</html>

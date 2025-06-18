@@ -1,0 +1,26 @@
+{% extends 'clients/base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+
+            <h2 class="fw-normal">Уникальных клиентов:</h2>
+            <p>{{ unique_clients }}</p>
+            <p><a class="btn btn-secondary" href="{% url 'clients:list_client' %}">Посмотреть детали &raquo;</a></p>
+        </div>
+        <h2 class="fw-normal">Количество всех рассылок:</h2>
+        <p>{{ total_mailings }}</p>
+        <p><a class="btn btn-secondary" href="{% url 'mailing:list_mailing' %}">Посмотреть детали &raquo;</a></p>
+    </div>
+    <h2 class="fw-normal">Количество активных рассылок:</h2>
+    <p>{{ active_mailings }}</p>
+
+    <p><a class="btn btn-secondary" href="{% url 'mailing:list_active_mailing' %}">Посмотреть детали &raquo;</a></p>
+    {% else %}
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+        <p>Пожалуйста войдите в систему</p>
+    </div>
+    {% endif %}
+    {% endblock %}
+</section>

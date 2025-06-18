@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Выберите тип рассылки</title>
+</head>
+<body>
+<h1>Создать новую рассылку</h1>
+<div>
+    <h2>Запланированная рассылка</h2>
+    <a href="{% url 'mailing:create_scheduled_mailing' %}">
+        <button>Создать запланированную рассылку</button>
+    </a>
+</div>
+<div>
+    <h2>Немедленная отправка</h2>
+    <a href="{% url 'mailing:create_immediate_mailing' %}">
+        <button>Отправить письмо сейчас</button>
+    </a>
+</div>
+</body>
+</html>
