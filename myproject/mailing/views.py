@@ -81,7 +81,7 @@ class ImmediateMailingCreateView(CreateView):
         return super().form_valid(form)
 
 
-@method_decorator(cache_page(60 * 1), name="dispatch")
+# @method_decorator(cache_page(60 * 1), name="dispatch")
 class MailingDetailView(DetailView):
     model = Mailing
 
@@ -96,7 +96,7 @@ class MailingDetailView(DetailView):
         return context
 
 
-@method_decorator(cache_page(60 * 1), name="dispatch")
+# @method_decorator(cache_page(60 * 1), name="dispatch")
 class MailingListView(ListView):
     model = Mailing
 

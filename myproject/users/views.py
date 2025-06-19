@@ -40,7 +40,7 @@ def email_verification(request, token):
 
 
 def change_password(
-    request,
+        request,
 ):
     if request.method == "POST":
         form = UserChangePasswordForm(request.POST)

@@ -1,7 +1,7 @@
 from datetime import  timedelta
 from django.conf import settings
 from django.utils import timezone
-from apscheduler.schedulers.background import BackgroundScheduler
+
 from django.core.mail import send_mail
 from .models import Mailing, MailingTrying
 
@@ -54,8 +54,8 @@ def check_and_send_mailings():
             mailing.status = Mailing.Status.FAILED
             mailing.save()
 
-
-def start_scheduler():
-    scheduler = BackgroundScheduler()
-    scheduler.add_job(check_and_send_mailings, "interval", minutes=1)
-    scheduler.start()
+#
+# def start_scheduler():
+#     scheduler = BackgroundScheduler()
+#     scheduler.add_job(check_and_send_mailings, "interval", minutes=1)
+#     scheduler.start()

@@ -1,7 +1,7 @@
 from datetime import timedelta
 from django.utils import timezone
 from django.db import models
-from myproject.clients.models import Client
+from clients.models import Client
 
 
 class Message(models.Model):

@@ -1,5 +1,5 @@
 from django.urls import path
-from mailing.views import (
+from .views import (
     MessageCreateView,
     MessageListView,
     MessageDetailView,

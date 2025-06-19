@@ -8,8 +8,8 @@
 <body>
     {% if messages %}
     <ul class="messages">
-        {% for message in messages %}
-            <li class="{{ message.tags }}">{{ message }}</li>
+        {% for message_ in messages %}
+            <li class="{{ message_.tags }}">{{ message_ }}</li>
         {% endfor %}
     </ul>
     {% endif %}

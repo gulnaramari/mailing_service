@@ -11,7 +11,7 @@ from .models import Client
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from myproject.mailing.models import Mailing
+from mailing.models import Mailing
 
 
 def base(request):
@@ -23,8 +23,8 @@ def base(request):
     if request.method == "POST":
         name = request.POST.get("name")
         email = request.POST.get("email")
-        message = request.POST.get("message")
-        print(f"You have new message from {name}({email}): {message}")
+        message_ = request.POST.get("message_")
+        print(f"You have new message from {name}({email}): {message_}")
     return render(
         request,
         "clients/base.html",
@@ -45,7 +45,7 @@ def home(request):
     if request.method == "POST":
         name = request.POST.get("name")
         email = request.POST.get("email")
-        message = request.POST.get("message")
+        message_ = request.POST.get("message_")
     context = {
         "unique_clients": unique,
         "total_mailings": mailings,
@@ -53,7 +53,7 @@ def home(request):
         "active_mailings_list": active_mailings_list,
     }
 
-    return render(request, "clients/main.html", context)
+    return render(request, "clients/home.html", context)
 
 
 class ClientCreateView(CreateView):

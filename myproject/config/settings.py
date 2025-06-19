@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'users',
     'clients',
     'mailing',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -117,6 +118,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    # Здесь вы можете добавить пути к вашим статическим файлам,
+    # если они располагаются вне приложений
+    BASE_DIR, 'static'
+]
 
 MEDIA_URL = 'media/'
 
